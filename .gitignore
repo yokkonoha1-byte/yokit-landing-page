@@ -1,0 +1,10 @@
+node_modules/
+.DS_Store
+*.log
+.gemini/
+.agents/
+.system_generated/
+scratch/
+task.md
+implementation_plan.md
+walkthrough.md

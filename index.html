@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YoKit — AI Chat Assistant for Social Commerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=1.8.1">
+</head>
+<body>
+  <!-- Premium SVG Line-Drawing Preloader -->
+  <div id="preloader" class="preloader">
+    <!-- Pulsing backlight aura -->
+    <div class="preloader-glow-aura" id="preloader-aura"></div>
+    <div class="preloader-text-container">
+      <svg class="preloader-svg" width="520" height="120" viewBox="0 0 520 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="yo-grad-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFE5A3" />
+            <stop offset="100%" stop-color="#FFD043" />
+          </linearGradient>
+          <linearGradient id="kit-grad-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#80C4FF" />
+            <stop offset="100%" stop-color="#2997FF" />
+          </linearGradient>
+          <linearGradient id="yo-grad-light" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#D49024" />
+            <stop offset="100%" stop-color="#E5A823" />
+          </linearGradient>
+          <linearGradient id="kit-grad-light" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0055B3" />
+            <stop offset="100%" stop-color="#007AFF" />
+          </linearGradient>
+          <!-- Melting ice cream displacement filter -->
+          <filter id="melt-filter" x="-20%" y="-20%" width="140%" height="180%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015 0.08" numOctaves="2" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G" id="melt-map" />
+          </filter>
+        </defs>
+        <text x="50%" y="95" text-anchor="middle" class="preloader-text">
+          <tspan class="yo-stroke">YO</tspan><tspan class="kit-stroke">KIT</tspan>
+        </text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Animated Mesh Gradient Background (Apple-style) -->
+  <div class="mesh-bg">
+    <div class="mesh-blob blob-1"></div>
+    <div class="mesh-blob blob-2"></div>
+    <div class="mesh-blob blob-3"></div>
+    <div class="mesh-blob blob-4"></div>
+  </div>
+  <div class="cursor-glow" id="cursor-glow"></div>
+  <div class="wave-overlay" id="wave-overlay"></div>
+  <div class="grid-overlay"></div>
+  
+
+
+
+  <div class="app-container">
+    
+    <!-- Navigation -->
+    <header class="navbar">
+      <div class="logo">
+        <span class="logo-y">Yo</span><span class="logo-k">Kit</span><span class="logo-dot">.</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#demo" class="nav-link">หน้าจอเดโม</a>
+        <a href="#about" class="nav-link">โซลูชันของเรา</a>
+        <a href="#steps" class="nav-link">ขั้นตอนติดตั้ง</a>
+        <a href="#features" class="nav-link">ฟีเจอร์เด่น</a>
+        <a href="#contact" class="nav-link">ทดลองใช้ฟรี</a>
+      </nav>
+      <div class="navbar-actions">
+        <div id="theme-switch" class="navbar-avatar-switcher" aria-label="สลับโหมดสี">
+          <div class="switcher-track">
+            <!-- Yo with Sun (Light Mode Icon) -->
+            <div class="switcher-avatar avatar-yo-sun">
+              <svg viewBox="0 0 100 100" class="switcher-svg">
+                <!-- Yo's head and ears Y-shape -->
+                <path d="M 35 15 C 38 5, 42 5, 45 25 L 48 40 L 52 40 L 55 25 C 58 5, 62 5, 65 15 C 67 22, 63 32, 60 45 L 60 70 C 60 82, 40 82, 40 70 L 40 45 C 37 32, 33 22, 35 15 Z" fill="#FFD043" />
+                <!-- Face: •/• -->
+                <circle cx="46" cy="58" r="1.5" fill="#13161F" />
+                <line x1="49" y1="60" x2="52" y2="56" stroke="#13161F" stroke-width="1.2" stroke-linecap="round" />
+                <circle cx="54" cy="58" r="1.5" fill="#13161F" />
+                <!-- Feet -->
+                <ellipse cx="43" cy="74" rx="3.5" ry="2.5" fill="#FFFFFF" stroke="#FFD043" stroke-width="0.5" />
+                <ellipse cx="57" cy="74" rx="3.5" ry="2.5" fill="#FFFFFF" stroke="#FFD043" stroke-width="0.5" />
+                <!-- Left arm holding the Sun -->
+                <path d="M 38 62 Q 28 58 24 50" stroke="#FFD043" stroke-width="3" stroke-linecap="round" fill="none" />
+                <!-- The Sun -->
+                <circle cx="18" cy="42" r="8" fill="#FF9F1C" style="filter: drop-shadow(0 0 4px #FF9F1C);" />
+                <circle cx="18" cy="42" r="6" fill="#FFE5A3" />
+              </svg>
+            </div>
+            <!-- Kit with Moon (Dark Mode Icon) -->
+            <div class="switcher-avatar avatar-kit-moon">
+              <svg viewBox="0 0 100 100" class="switcher-svg">
+                <!-- Kit Sphere Body -->
+                <circle cx="50" cy="56" r="18" fill="#1A1D27" stroke="#00F2FE" stroke-width="1.5" />
+                <!-- Kit horn -->
+                <path d="M 60 42 C 62 40, 68 39, 71 42 C 70 46, 65 49, 62 49 Z" fill="#1A1D27" stroke="#00F2FE" stroke-width="0.7" />
+                <!-- Face: •/• -->
+                <circle cx="45" cy="56" r="1.5" fill="#FFD043" />
+                <line x1="48" y1="58" x2="52" y2="54" stroke="#FFD043" stroke-width="1.2" stroke-linecap="round" />
+                <circle cx="55" cy="56" r="1.5" fill="#FFD043" />
+                <!-- Feet -->
+                <ellipse cx="45" cy="74" rx="3" ry="2" fill="#13161F" />
+                <ellipse cx="55" cy="74" rx="3" ry="2" fill="#13161F" />
+                <!-- Arm holding the Moon -->
+                <path d="M 63 60 Q 72 58 76 50" stroke="#1A1D27" stroke-width="3" stroke-linecap="round" fill="none" />
+                <!-- The Moon (Crescent) -->
+                <path d="M 76 34 A 8 8 0 1 0 84 48 A 6 6 0 1 1 76 34 Z" fill="#00F2FE" style="filter: drop-shadow(0 0 4px #00F2FE);" />
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="system-status">
+          <span class="pulse-dot"></span>
+          <span class="status-text">AGENCY ACTIVE</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section (Image 1) -->
+      <section class="hero-section text-center">
+
+        <div class="status-badge gold-badge">
+          <span class="badge-text">ร้านกว่า 500+ ร้านค้า ยอดขายแน่นด้วย YOKIT</span>
+        </div>
+        
+        <h1 class="hero-title font-large">
+          แชทเยอะ แอดมินตอบไม่ทัน<br>
+          ยอดหลุดทุกวัน<br>
+          <span class="gradient-text-yo">YoKit ปิดยอดจากแชทให้โดยไม่ต้องจ้างเพิ่ม</span>
+        </h1>
+        
+        <p class="hero-desc">
+          ลูกค้าทักตี 2 — YoKit ตอบ แนะนำ ส่งสินค้า ตอบทุกคนทุกช่อง เข้ามาปิดบิลออเดอร์ให้เลย
+        </p>
+
+        <!-- Pills Row -->
+        <div class="hero-pills-container">
+          <span class="hero-pill">ตอบแชท 2 วินาที</span>
+          <span class="hero-pill">ส่งออเดอร์อัตโนมัติ</span>
+          <span class="hero-pill">อนุมัติการซื้อโดยอัตโนมัติ</span>
+          <span class="hero-pill">ตรวจสอบสต็อกสินค้า</span>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary btn-cta">ทดลองฟรี 7 วัน – ไม่ต้องผูกบัตร</a>
+          <a href="#demo" class="btn-demo-link">ดูเดโมฟรี <span class="arrow">&rarr;</span></a>
+        </div>
+        
+        <div class="hero-subnotes">
+          ไม่ผูกบัตร - ยกเลิกได้ทุกเมื่อ - ทีมไทย
+        </div>
+      </section>
+
+      <!-- Brand Logo Grid (Image 1 Logo Bar) -->
+      <section class="brands-bar-section">
+        <div class="brands-container">
+          <div class="brands-grid">
+            <span class="brand-logo">CODEPROMPT</span>
+            <span class="brand-logo">TAMAYA</span>
+            <span class="brand-logo">RELIFE</span>
+            <span class="brand-logo">BIG KITCHEN</span>
+            <span class="brand-logo">BETTER MOVE</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Guarantee Features Grid (Image 1 Bottom Cards) -->
+      <section class="guarantee-section">
+        <div class="guarantee-grid">
+          <!-- Card 1 -->
+          <div class="guarantee-card glass-card">
+            <div class="guarantee-icon">&#10004;</div>
+            <div class="guarantee-info">
+              <h4>ฟรี 7 วันเต็ม</h4>
+              <p>ทดลองครบทุกฟีเจอร์ได้เลย</p>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="guarantee-card glass-card">
+            <div class="guarantee-icon">&#10004;</div>
+            <div class="guarantee-info">
+              <h4>ไม่ต้องผูกบัตร</h4>
+              <p>ไม่มีค่าแรกเข้า ไม่มีสัญญา ไม่สแปมบิล</p>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="guarantee-card glass-card">
+            <div class="guarantee-icon">&#10004;</div>
+            <div class="guarantee-info">
+              <h4>ทีมไทยพร้อมดูแล</h4>
+              <p>คนไทยดูแลตลอด จ-ส 10:00-20:00</p>
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div class="guarantee-card glass-card">
+            <div class="guarantee-icon">&#10004;</div>
+            <div class="guarantee-info">
+              <h4>500+ ร้านใช้งาน</h4>
+              <p>ร้านค้า คลินิก โค้ช ใช้แล้วเห็นผลจริง</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive Dashboard Section (Image 2) -->
+      <section id="demo" class="dashboard-section">
+        <div class="section-header text-center">
+          <h2 class="section-title">ทุกดีลอยู่ตรงหน้าคุณ — ไม่มีแชทตกหล่นอีก</h2>
+          <p class="section-subtitle">ออเดอร์ สินค้า ออกรายงาน รับเงิน — จบในแอปเดียวตั้งแต่วันแรก</p>
+        </div>
+
+        <!-- Dashboard Window Mockup (Glassmorphism layout) -->
+        <div class="dashboard-window-mockup glass-card">
+          <!-- Sidebar Mockup -->
+          <aside class="dash-sidebar">
+            <div class="dash-logo">
+              <span class="logo-y">Yo</span><span class="logo-k">Kit</span>
+            </div>
+            <nav class="dash-menu">
+              <a href="#demo" class="dash-menu-item active" data-tab="1"><span class="icon">📊</span> Dashboard</a>
+              <a href="#demo" class="dash-menu-item" data-tab="2"><span class="icon">💬</span> Chat Inbox</a>
+              <a href="#demo" class="dash-menu-item" data-tab="3"><span class="icon">📦</span> คลังสินค้า</a>
+              <a href="#demo" class="dash-menu-item" data-tab="4"><span class="icon">🤖</span> AI & แชทบอท</a>
+            </nav>
+          </aside>
+
+          <!-- Main Dashboard Content Panel -->
+          <div class="dash-main">
+            <!-- Tabs Wrapper -->
+            <div class="dash-tabs-content">
+              <!-- Tab 1: Dashboard Main Panel (Visible default) -->
+              <div class="dash-tab-pane active" id="pane-1">
+                <header class="dash-header">
+                  <div>
+                    <span class="dash-title">Dashboard</span> <span class="badge badge-clinic">Min Clinic</span> <span class="badge badge-trial">ENTERPRISE — Free Trial</span>
+                    <div class="dash-date">วันจันทร์ที่ 30 มีนาคม 2569</div>
+                  </div>
+                  <div class="dash-quick-stats">
+                    <span>วันนี้</span> | <span class="active">สัปดาห์</span> | <span>เดือน</span> | <span>ไตรมาส</span>
+                  </div>
+                </header>
+                
+                <!-- Stats grid -->
+                <div class="dash-stats-grid">
+                  <div class="dash-stat-box">
+                    <span class="box-label">แชททั้งหมด</span>
+                    <div class="box-value">7</div>
+                    <span class="box-change text-green">&uarr; 100% เทียบช่วงก่อนหน้า</span>
+                  </div>
+                  <div class="dash-stat-box">
+                    <span class="box-label">นัดหมาย</span>
+                    <div class="box-value">14 ครั้ง</div>
+                    <span class="box-change text-green">&uarr; 180% เทียบช่วงก่อนหน้า</span>
+                  </div>
+                  <div class="dash-stat-box">
+                    <span class="box-label">รายได้</span>
+                    <div class="box-value">43,500 บาท</div>
+                    <span class="box-change text-red">&darr; 19% เทียบช่วงก่อนหน้า</span>
+                  </div>
+                  <div class="dash-stat-box">
+                    <span class="box-label">ลูกค้าใหม่</span>
+                    <div class="box-value">3</div>
+                    <span class="box-change text-muted">ทั้งหมด 11 ราย</span>
+                  </div>
+                </div>
+
+                <!-- Chart panel -->
+                <div class="dash-chart-section">
+                  <div class="chart-header">
+                    <span>ภาพรวมข้อความ & นัดหมาย</span>
+                    <div class="chart-legend">
+                      <span class="legend-item"><span class="dot color-msg"></span> ข้อความ</span>
+                      <span class="legend-item"><span class="dot color-app"></span> นัดหมาย</span>
+                    </div>
+                  </div>
+                  
+                  <!-- SVG Mock Chart -->
+                  <div class="chart-svg-container">
+                    <svg viewBox="0 0 600 200" class="chart-svg">
+                      <!-- Grid lines -->
+                      <line x1="0" y1="50" x2="600" y2="50" stroke="rgba(255,255,255,0.05)" />
+                      <line x1="0" y1="100" x2="600" y2="100" stroke="rgba(255,255,255,0.05)" />
+                      <line x1="0" y1="150" x2="600" y2="150" stroke="rgba(255,255,255,0.05)" />
+                      
+                      <!-- Path Messages (Blue line) -->
+                      <path d="M 0 170 Q 100 80 180 160 T 360 80 T 540 100 L 600 180" fill="none" stroke="#00F2FE" stroke-width="2.5" />
+                      
+                      <!-- Path Appointments (Orange line) -->
+                      <path d="M 0 190 Q 80 150 160 180 T 320 100 T 480 170 L 600 130" fill="none" stroke="#FFD043" stroke-width="2.5" />
+                      
+                      <!-- Sparkles points -->
+                      <circle cx="180" cy="160" r="4" fill="#00F2FE" />
+                      <circle cx="360" cy="80" r="4" fill="#00F2FE" />
+                      <circle cx="320" cy="100" r="4" fill="#FFD043" />
+                    </svg>
+                    <div class="chart-dates-labels">
+                      <span>02-28</span><span>03-01</span><span>03-05</span><span>03-09</span><span>03-12</span><span>03-16</span><span>03-19</span><span>03-23</span><span>03-25</span><span>03-29</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bottom sections -->
+                <div class="dash-bottom-grid">
+                  <div class="dash-subpanel">
+                    <h5>สถานะนัดหมาย</h5>
+                    <div class="pie-chart-mock">
+                      <div class="pie-circle">
+                        <span class="pie-val">20</span>
+                        <span class="pie-label">ทั้งหมด</span>
+                      </div>
+                      <div class="pie-legend">
+                        <div><span class="dot bg-cancel"></span> ยกเลิก <span>1 (5%)</span></div>
+                        <div><span class="dot bg-confirm"></span> เสร็จสิ้น <span>10 (50%)</span></div>
+                        <div><span class="dot bg-wait"></span> รอความเห็น <span>9 (45%)</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="dash-subpanel">
+                    <h5>บริการยอดนิยม Top 5</h5>
+                    <div class="popular-services-list">
+                      <div class="pop-service-row">
+                        <span>1. Mesotherapy หน้าใส</span>
+                        <div class="progress-bar-container"><div class="progress-bar" style="width: 80%; background: #00F2FE;"></div></div>
+                        <span>8</span>
+                      </div>
+                      <div class="pop-service-row">
+                        <span>2. เลเซอร์รอยสิว Fractional CO2</span>
+                        <div class="progress-bar-container"><div class="progress-bar" style="width: 60%; background: #00F2FE;"></div></div>
+                        <span>6</span>
+                      </div>
+                      <div class="pop-service-row">
+                        <span>3. รักษาสิวเรื้อรัง</span>
+                        <div class="progress-bar-container"><div class="progress-bar" style="width: 40%; background: #00F2FE;"></div></div>
+                        <span>4</span>
+                      </div>
+                      <div class="pop-service-row">
+                        <span>4. โบท็อกซ์ ลดริ้วรอย</span>
+                        <div class="progress-bar-container"><div class="progress-bar" style="width: 30%; background: #00F2FE;"></div></div>
+                        <span>3</span>
+                      </div>
+                      <div class="pop-service-row">
+                        <span>5. ศัลยกรรมตาสองชั้น</span>
+                        <div class="progress-bar-container"><div class="progress-bar" style="width: 20%; background: #FFD043;"></div></div>
+                        <span>2</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 2: Chat Inbox Simulator Mock -->
+              <div class="dash-tab-pane" id="pane-2">
+                <div class="pane-placeholder-inbox">
+                  <h5>กล่องข้อความรวม (LINE OA + Facebook + IG)</h5>
+                  <p>ระบบรวบรวมแชทจากทุกช่องทาง แอดมินสามารถเข้ามาสวมรอยหรือปล่อยให้ AI ช่วยตอบได้อย่างลงตัว</p>
+                  <div class="chat-placeholder-item">
+                    <span class="chat-sender">คุณ M (LINE)</span>
+                    <span class="chat-preview">สนใจครีมลดรอยสิวครับ...</span>
+                    <span class="chat-time">2 นาทีที่แล้ว</span>
+                  </div>
+                  <div class="chat-placeholder-item">
+                    <span class="chat-sender">คุณ ลิสา (Facebook)</span>
+                    <span class="chat-preview">จองคิวรักษาสิวพรุ่งนี้บ่าย 3 ค่ะ...</span>
+                    <span class="chat-time">10 นาทีที่แล้ว</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 3: Inventory Stock Pane -->
+              <div class="dash-tab-pane" id="pane-3">
+                <div class="pane-placeholder-stock">
+                  <h5>ระบบเช็คและตัดสต็อกสินค้าอัตโนมัติ</h5>
+                  <p>สต็อกสินค้าอัพเดตเรียลไทม์ทันทีเมื่อมีการโอนเงินและรับออเดอร์จากแชท</p>
+                  <table class="mock-table">
+                    <thead>
+                      <tr><th>ชื่อสินค้า</th><th>คงเหลือ</th><th>จองแล้ว</th><th>สถานะ</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Glow Cream X</td><td>124 ชิ้น</td><td>12 ชิ้น</td><td><span class="badge-status instock">มีของ</span></td></tr>
+                      <tr><td>Acne Treatment Serum</td><td>48 ชิ้น</td><td>5 ชิ้น</td><td><span class="badge-status instock">มีของ</span></td></tr>
+                      <tr><td>Mesotherapy Kit</td><td>3 ชิ้น</td><td>2 ชิ้น</td><td><span class="badge-status lowstock">ใกล้หมด</span></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Tab 4: AI Settings Pane -->
+              <div class="dash-tab-pane" id="pane-4">
+                <div class="pane-placeholder-ai">
+                  <h5>การตั้งค่า AI Assistant</h5>
+                  <p>ฝึกอบรมข้อมูลร้านค้าให้แชทบอทเข้าใจง่ายๆ เพียงนำรายละเอียดสินค้ามาใส่ในหน้าต่างด้านล่าง</p>
+                  <div class="ai-mock-box">
+                    <strong>คลังข้อมูลร้านค้า:</strong>
+                    <pre>
+- Glow Cream X ราคาปกติ 850 บาท ส่งฟรี
+- สรรพคุณ: ช่วยให้หน้าใส รักษารอยแดงสิวเห็นผลใน 7 วัน
+- โปรโมชั่นปัจจุบัน: ซื้อ 2 ชิ้น ลด 30% ทันที!
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dashboard controls & pagination dot indicators -->
+            <div class="dash-slider-controls">
+              <div class="dash-pagination">
+                <span class="dot active" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+                <span class="dot" data-slide="3"></span>
+                <span class="dot" data-slide="4"></span>
+                <span class="slide-indicator-text">1/4</span>
+              </div>
+              <div class="dash-arrows">
+                <button class="btn-arrow" id="btn-prev-dash" aria-label="ภาพก่อนหน้า">&lt;</button>
+                <button class="btn-arrow" id="btn-next-dash" aria-label="ภาพถัดไป">&gt;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Target Industry Solutions Section (Image 3) -->
+      <section id="about" class="solutions-section">
+        <div class="section-header text-left-solutions">
+          <span class="gold-subtitle-decor">ออกแบบมาสำหรับธุรกิจของคุณ</span>
+          <h2 class="section-title">ร้านค้า คลินิก โค้ช — เห็นยอดเพิ่มตั้งแต่สัปดาห์แรก</h2>
+          <p class="section-subtitle">ไม่ว่าจะขายสินค้า คอร์ส หรือบริการ — YoKit ปรับตัวให้รู้ใจธุรกิจของคุณ</p>
+        </div>
+
+        <div class="solutions-grid">
+          <!-- Left Column (Ecommerce - Large Card) -->
+          <div class="solution-card card-large glass-card glowing-card">
+            <div class="solution-image-placeholder">
+              <div class="mock-image-box">
+                <div class="mock-shipping-box">📦</div>
+                <div class="mock-glowing-dots"></div>
+              </div>
+            </div>
+            <div class="solution-card-body">
+              <span class="solution-badge ecommerce-badge">🛒 ECOMMERCE</span>
+              <h3>YoKit Commerce</h3>
+              <p>ลูกค้าทิ้งตะกร้า 100 คน &rarr; ดึงกลับมาซื้อ 30 คน ขณะที่คุณนอนหลับ</p>
+              <a href="#contact" class="solution-link">อ่านรายละเอียดเพิ่มเติม &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Right Column (Course and Clinic - Two smaller stacked cards) -->
+          <div class="solutions-stacked-right">
+            <!-- Top Right Card (Course) -->
+            <div class="solution-card card-small glass-card">
+              <div class="solution-card-body">
+                <span class="solution-badge course-badge">🎓 COACH & COURSE</span>
+                <h3>YoKit Course</h3>
+                <p>ขายคลาสเต็มทุกรอบ - ลด no-show 70% - AI แชทแทนคุณ 24 ชม.</p>
+                <a href="#contact" class="solution-link">อ่านเพิ่มเติม &rarr;</a>
+              </div>
+            </div>
+
+            <!-- Bottom Right Card (Clinic) -->
+            <div class="solution-card card-small glass-card">
+              <div class="solution-card-body">
+                <span class="solution-badge clinic-badge">🩺 CLINIC & WELLNESS</span>
+                <h3>YoKit Clinic</h3>
+                <p>ลด no-show จาก 25% &rarr; 7% - จองคิวผ่านแชทใน 60 วินาที</p>
+                <a href="#contact" class="solution-link">อ่านเพิ่มเติม &rarr;</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chat Automation Showcase (Image 4) -->
+      <section class="chat-showcase-section">
+        <div class="chat-showcase-layout">
+          <!-- Left Text Details -->
+          <div class="chat-showcase-text">
+            <span class="gold-subtitle-decor">มีแชทคนเดียวก็ตอบได้ทุกคน</span>
+            <h2 class="section-title text-white">ลูกค้าทักมาพร้อมจ่าย แต่ไม่มีคนตอบ — ยอดหลุดทุกวัน</h2>
+            <p class="section-subtitle text-gray">YoKit ดูแลทุกบทสนทนา: คลิกตัดสินใจ ส่งลิงก์ชำระเงิน ย้ำ 80% ภายในไม่กี่นาที</p>
+            
+            <ul class="chat-checklist">
+              <li><span class="check-icon">&#10004;</span> ลูกค้ากว่า 50 คน/วัน — AI ตอบพร้อมกันใน 2 วินาที</li>
+              <li><span class="check-icon">&#10004;</span> ตอบช่วง 5 นาทีหลังทัก — Conversion สูงกว่า 90%</li>
+              <li><span class="check-icon">&#10004;</span> "คนใจร้อน" แต่ไม่สู้โปรโมชั่น — AI แจ้งทันที ไม่พลาด</li>
+              <li><span class="check-icon">&#10004;</span> แยกออเดอร์แต่ละลูกค้าในกล่องเดียว รู้ว่าใครทำธุรกรรมอะไร</li>
+            </ul>
+          </div>
+
+          <!-- Right Interactive Chat Mockup -->
+          <div class="chat-window-mockup glass-card">
+            <div class="chat-window-header">
+              <div class="bot-avatar-icon">🤖</div>
+              <div>
+                <span class="bot-name">YoKit Assistant</span>
+                <span class="bot-status"><span class="dot"></span> Active</span>
+              </div>
+            </div>
+            
+            <div class="chat-conversation-container" id="mock-chat-box">
+              <!-- Bubble 1 (Customer) -->
+              <div class="chat-bubble bubble-customer">
+                <p>ลูกค้า M ที่ทัก — สนใจดีจ้า ✨</p>
+              </div>
+              
+              <!-- Bubble 2 (AI Assistant) -->
+              <div class="chat-bubble bubble-assistant">
+                <p>สวัสดีค่ะ คุณ M! ครีม Glow X ลด 30% อยู่นะคะ ขอออเดอร์ได้เลยค่ะ 🛍️</p>
+              </div>
+              
+              <!-- Bubble 3 (Customer) -->
+              <div class="chat-bubble bubble-customer">
+                <p>เอาเลย 2 ชิ้น ส่งยังไงคะ?</p>
+              </div>
+              
+              <!-- Bubble 4 (AI Assistant) -->
+              <div class="chat-bubble bubble-assistant">
+                <p>ส่งฟรีเลยค่ะ! โอน ฿850 ลิงก์นี้ได้เลยค่ะ 👇</p>
+                <div class="payment-link-card">
+                  <span class="link-icon">🔗</span> ลิงก์ชำระเงิน - ยืนยันใน 3 วินาที
+                </div>
+              </div>
+              
+              <!-- Bubble 5 (Customer) -->
+              <div class="chat-bubble bubble-customer">
+                <p>โอนแล้วค่ะ แนบสลิป <span class="check-tick">&#10004;</span></p>
+              </div>
+              
+              <!-- Bubble 6 (AI Assistant) -->
+              <div class="chat-bubble bubble-assistant">
+                <p>รับเรียบร้อยค่ะ! จัดส่งพรุ่งนี้นะคะ 📦</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3-Step Setup & Key Stats Counter (Image 5) -->
+      <section id="steps" class="setup-steps-section">
+        <div class="section-header text-center">
+          <span class="gold-subtitle-decor">3 ขั้นตอน 20 นาที เริ่มมีน้องตอบให้ได้เลย</span>
+          <h2 class="section-title">ไม่ต้องเขียนโค้ด ไม่ต้องรู้ระบบ set up ให้ฟรี</h2>
+          <p class="section-subtitle">ร้านกว่า 80% เริ่มต้นและเห็นผลตั้งแต่วันแรก</p>
+        </div>
+
+        <!-- 3 Step Cards -->
+        <div class="steps-grid">
+          <!-- Step 1 -->
+          <div class="step-card glass-card">
+            <div class="step-badge-row">
+              <span class="step-number">1</span>
+              <span class="step-time-badge">5 นาที</span>
+            </div>
+            <h4>เชื่อมช่องทางแชท</h4>
+            <p>ต่อกับ LINE OA หรือ Facebook Page เหมือนให้ที่อยู่ — ไม่ต้องพึ่งเรื่อง developer</p>
+          </div>
+          
+          <!-- Step 2 -->
+          <div class="step-card glass-card">
+            <div class="step-badge-row">
+              <span class="step-number">2</span>
+              <span class="step-time-badge">10 นาที</span>
+            </div>
+            <h4>สอน AI ข้อมูลร้านคุณ</h4>
+            <p>ใส่สินค้า ราคา เงื่อนไข — AI จำทั้งหมด ไม่ต้องอธิบายซ้ำ</p>
+          </div>
+          
+          <!-- Step 3 -->
+          <div class="step-card glass-card">
+            <div class="step-badge-row">
+              <span class="step-number">3</span>
+              <span class="step-time-badge">5 นาที</span>
+            </div>
+            <h4>AI เริ่มปิดยอดได้ 24/7</h4>
+            <p>เปิด YoKit ไว้ — AI ดูแลลูกค้า คุณหยุดพักผ่อน แล้วกลับมาเช็คยอด</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Blue Stats Bar (Image 5 Bottom) -->
+      <section class="stats-counter-bar">
+        <div class="stats-bar-grid">
+          <div class="stat-counter-item">
+            <h3>&lt; 3วินาที</h3>
+            <p>ตอบลูกค้าทันที ไม่มีรอ</p>
+          </div>
+          <div class="stat-counter-item">
+            <h3>90%+</h3>
+            <p>ลูกค้าทักกลับ — ดึงนิ้ว ซื้อปิดได้</p>
+          </div>
+          <div class="stat-counter-item">
+            <h3>24/7</h3>
+            <p>สแตนด์บายตลอด ไม่มีวันหยุด</p>
+          </div>
+          <div class="stat-counter-item">
+            <h3>20นาที</h3>
+            <p>เริ่มต้นใช้งานได้ทันที</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Grid (Image 6 Top) -->
+      <section id="features" class="features-section">
+        <div class="section-header text-left-solutions">
+          <span class="gold-subtitle-decor">ฟีเจอร์ที่ทีมคุณต้องการ</span>
+          <h2 class="section-title">แอดมินลืมตา ตอบช้า เช็คสลิปไม่ทัน — YoKit จัดการให้หมด</h2>
+          <p class="section-subtitle">หยุดล็อกอิน 5 บัญชีในเวลาเดียวกัน — ทุกอย่างอยู่ในหน้าจอเดียว</p>
+        </div>
+
+        <div class="features-mosaic-grid">
+          <!-- Main Feature (Large Left Box) -->
+          <div class="feature-card main-feature glass-card">
+            <span class="feature-badge">🤖 AI ปิดยอดภาษาไทย — ลูกค้าไม่รู้ว่าคุยกับ AI</span>
+            <p class="main-feature-desc">
+              YoKit เรียนรู้จากร้านคุณ — รู้จักสินค้า ราคา โปรโมชั่น และคุยสมูท ลูกค้าคุยเหมือนคุยกับแอดมินตัวจริง 100%
+            </p>
+            <div class="feature-pill-tags">
+              <span>ชำระเงิน</span>
+              <span>สต็อกสินค้า</span>
+              <span>ข้อมูลลูกค้า</span>
+            </div>
+            <a href="#contact" class="feature-link">ลูกค้าถามทุกสิ่ง AI ตอบ — ปิดยอดอัตโนมัติไม่ต้องทำซ้ำ &rarr;</a>
+          </div>
+
+          <!-- Smaller Features (Stacked Right Grid) -->
+          <div class="features-stacked-grid">
+            <div class="feature-card glass-card">
+              <span class="feature-icon">📬</span>
+              <h4>เก็บทุกแชทในจอเดียว — ไม่มีตกหล่น</h4>
+              <p>รวบแชทจาก LINE OA, Facebook Page, IG DM พร้อมกัน</p>
+            </div>
+            
+            <div class="feature-card glass-card">
+              <span class="feature-icon">⚡</span>
+              <h4>สั่งซื้อ — จ่ายเงินใน 3 วินาที</h4>
+              <p>ลูกค้าไม่ต้องออกจากแชท ยืนยันตัว เลือก SKU ชำระเงินในแชทเดียว</p>
+            </div>
+            
+            <div class="feature-card glass-card">
+              <span class="feature-icon">🔄</span>
+              <h4>ลูกค้าเก่าไม่ต้องทักโทร</h4>
+              <p>แจ้งเตือน - ส่งโปร - ดึงกลับมา ไม่สแปม</p>
+            </div>
+            
+            <div class="feature-card glass-card">
+              <span class="feature-icon">👥</span>
+              <h4>ทีมงานประสานกัน ไม่พลาดเลย</h4>
+              <p>note ภายใน - มอบหมาย - แชทไม่ซ้ำ - ไม่ตกหล่น</p>
+            </div>
+
+            <div class="feature-card glass-card span-two-cols">
+              <span class="feature-icon">💬</span>
+              <h4>LINE · Facebook · IG จอเดียวกัน</h4>
+              <p>หน้าจอเดียวครบ - ไม่สับสนแอป - ไม่พลาดแม้แต่แชทเดียว</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pain Points Section (Image 6 Bottom) -->
+      <section class="pain-points-section">
+        <div class="section-header text-center">
+          <span class="gold-subtitle-decor">คำตอบสำหรับทุกร้านค้าไอที</span>
+          <h2 class="section-title">ตอบช้าแค่ 5 นาที = เสียลูกค้า ไม่มีรอบสอง</h2>
+          <p class="section-subtitle">ลูกค้าทักพร้อมกัน 3 ช่อง LINE OA, IG, Facebook — ตัวคนเดียว พร้อมกันได้แค่ไหน?</p>
+        </div>
+
+        <div class="pain-grid">
+          <!-- Column 1 -->
+          <div class="pain-item glass-card">
+            <h4>แชทแดง 3 ช่องพร้อมกัน คนเดียวมีแค่สิ้วเดียว</h4>
+            <p>LINE, Facebook, Instagram ทำงานเชื่อมกัน &rarr; 1 แอดมิน &rarr; Conversion ร่วง</p>
+          </div>
+          <!-- Column 2 -->
+          <div class="pain-item glass-card">
+            <h4>คำถามเดิมซ้ำ 50 ครั้ง/วัน</h4>
+            <p>"ราคาเท่าไหร่?" "ส่งฟรีไหม?" "มีของไหม?" — แอดมินต้องตอบทุกวัน ทุกชั่วโมง ไม่จบ</p>
+          </div>
+          <!-- Column 3 -->
+          <div class="pain-item glass-card">
+            <h4>สนใจแต่ไม่มีใครตาม — ยอดหายเงียบ</h4>
+            <p>ลูกค้า 10 คนสนใจ ไม่มีใครตาม ? คนหายไป ไม่เคยกลับ</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Always On Banner (Image 1 Top) -->
+      <section class="always-on-section">
+        <div class="always-on-banner glass-card">
+          <div class="always-on-badge">
+            <span class="badge-text">YOKIT ALWAYS ON</span>
+          </div>
+          <h2 class="always-on-title">ทุกแชทมีค่า ไม่มีเคสค้าง</h2>
+          <p class="always-on-desc">YoKit ตอบทุกคน ทุกช่อง ทุกเวลา — ไม่มีแชทหาย ไม่มีลูกค้าหลุด</p>
+          <a href="#contact" class="always-on-link">ทีมไม่ต้องทนอีกต่อไป — เริ่มทดลองฟรีได้เลย &rarr;</a>
+        </div>
+      </section>
+
+      <!-- Real Numbers & Stats Section (Image 2 Top) -->
+      <section class="stats-showcase-section">
+        <div class="section-header text-center">
+          <span class="gold-subtitle-decor">ตัวเลขจากร้านจริง ไม่ได้แต่งขึ้น</span>
+          <h2 class="section-title">ไม่ต้องเชื่อเรา — ฟังจากร้านที่เห็นตัวเลขเปลี่ยนจริง</h2>
+        </div>
+        
+        <div class="stats-showcase-grid">
+          <!-- Stat 1 -->
+          <div class="stat-showcase-card glass-card">
+            <span class="stat-sublabel">สถิติ — ค่าเฉลี่ยจากผู้ใช้</span>
+            <div class="stat-value">ลดแชทซ้ำ 90%</div>
+            <p class="stat-desc">ใช้ YoKit 2 เดือน ลดการตอบซ้ำได้ 90% แอดมิน 3 คน ทำงานได้เท่า 8 คน</p>
+          </div>
+          <!-- Stat 2 (Highlight blue background) -->
+          <div class="stat-showcase-card highlight-card glass-card">
+            <span class="stat-sublabel text-gold">ประหยัด — ค่าแอดมิน</span>
+            <div class="stat-value text-white">฿25,000<span class="stat-unit">/เดือน</span></div>
+            <p class="stat-desc text-gray">แทนที่จะจ้าง 2 คน ฿25,000/เดือน ใช้ YoKit ฿3,990 — ประหยัดกว่า ฿21,010 ทุกเดือน</p>
+          </div>
+          <!-- Stat 3 -->
+          <div class="stat-showcase-card glass-card">
+            <span class="stat-sublabel">อัตราการปิด — เปรียบก่อน/หลัง</span>
+            <div class="stat-value">Conversion +3 เท่า</div>
+            <p class="stat-desc">Conversion จาก 24% เพิ่มเป็น 70% ใน 2 สัปดาห์หลังติดตั้ง YoKit</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Accordion 1 - Team Objections (Image 1 Middle) -->
+      <section class="faq-accordion-section">
+        <div class="section-header text-center">
+          <span class="gold-subtitle-decor">คุณกำลังคิดแบบนี้อยู่ไหม</span>
+          <h2 class="section-title">AI ปิดยอดได้ แต่ทีมคุณพูดได้ไหม?</h2>
+          <p class="section-subtitle">ตอบทุกข้อกังวล — ลองดูว่า YoKit จัดการยังไง</p>
+        </div>
+
+        <div class="accordion-container">
+          <!-- Accordion Item 1 -->
+          <div class="accordion-item glass-card">
+            <button class="accordion-header" aria-expanded="false">
+              <span>กลัว AI พูดผิด?</span>
+              <span class="accordion-icon">&darr;</span>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-content">
+                ไม่จำเป็นต้องห่วง! YoKit มีระบบ AI Guardrail ป้องกันการพูดนอกเหนือข้อมูลร้านค้า คุณสามารถใส่คู่มือตอบคำถาม สินค้า และเงื่อนไขได้อย่างละเอียด หากมีคำถามที่ AI ไม่มั่นใจ ระบบจะส่งต่อให้แอดมินตอบทันที
+              </div>
+            </div>
+          </div>
+          <!-- Accordion Item 2 -->
+          <div class="accordion-item glass-card">
+            <button class="accordion-header" aria-expanded="false">
+              <span>แอดมินยังทำงานได้ไหม?</span>
+              <span class="accordion-icon">&darr;</span>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-content">
+                แอดมินยังสามารถทำงานร่วมกับ AI ได้อย่างไม่มีสะดุดผ่านหน้าจอ Inbox กลาง แอดมินสามารถเข้ามาสวมรอยตอบแชทแทน AI หรือช่วยตรวจสอบรายการสั่งซื้อได้แบบเรียลไทม์
+              </div>
+            </div>
+          </div>
+          <!-- Accordion Item 3 -->
+          <div class="accordion-item glass-card">
+            <button class="accordion-header" aria-expanded="false">
+              <span>ทีมไม่เก่งเทคโนโลยี ใช้ได้ไหม?</span>
+              <span class="accordion-icon">&darr;</span>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-content">
+                YoKit ออกแบบมาให้ใช้งานง่ายเหมือนแชทปกติ ทีมงานของเราพร้อมติดตั้งและช่วยสอนการใช้งานให้ฟรีใน 20 นาทีแรก โดยไม่ต้องพิมพ์โค้ดแม้แต่บรรทัดเดียว
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing Cards Section (Image 2 Bottom) -->
+      <section class="pricing-section">
+        <div class="section-header text-center">
+          <span class="gold-subtitle-decor">ทดสอบ AI ฟรี ไม่มีค่าเริ่มต้น</span>
+          <h2 class="section-title">จ่ายแค่ค่าแอดมิน 1 วัน — ได้ AI ทำงาน 24 ชม. ทั้งเดือน</h2>
+          <p class="section-subtitle">เดือนแรกไม่มีความเสี่ยง ทดลองฟรี 7 วัน ไม่ต้องผูกบัตร</p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- Pricing Card 1: Starter -->
+          <div class="pricing-card glass-card">
+            <div class="pricing-card-header">
+              <span class="pricing-plan-badge starter-badge">&#9989; Starter</span>
+              <div class="pricing-price">฿1,490<span class="pricing-period">/เดือน</span></div>
+              <span class="pricing-credits">AI Credits ฿1,490/เดือน</span>
+            </div>
+            <ul class="pricing-features">
+              <li><span class="check-icon">&#10004;</span> 2 ช่องทาง</li>
+              <li><span class="check-icon">&#10004;</span> 3 ผู้ใช้งาน</li>
+              <li><span class="check-icon">&#10004;</span> 3 สาขา</li>
+              <li><span class="check-icon">&#10004;</span> ฟีเจอร์ AI ครบ</li>
+            </ul>
+            <a href="#contact" class="btn btn-secondary pricing-btn">ทดลองฟรี 7 วัน</a>
+          </div>
+
+          <!-- Pricing Card 2: Business (Featured) -->
+          <div class="pricing-card featured-pricing glass-card glowing-card">
+            <div class="featured-badge-tag">Most Popular</div>
+            <div class="pricing-card-header">
+              <span class="pricing-plan-badge business-badge">&#128640; Business</span>
+              <div class="pricing-price text-white">฿3,990<span class="pricing-period text-gray">/เดือน</span></div>
+              <span class="pricing-credits text-gold">AI Credits ฿5,000/เดือน (1.25x สุดคุ้ม)</span>
+            </div>
+            <ul class="pricing-features text-gray">
+              <li><span class="check-icon text-gold">&#10004;</span> 5 สาขา</li>
+              <li><span class="check-icon text-gold">&#10004;</span> 5,000 ผู้ติดต่อ</li>
+              <li><span class="check-icon text-gold">&#10004;</span> 10 ช่องทาง</li>
+              <li><span class="check-icon text-gold">&#10004;</span> Smart Upsell + Re-engagement</li>
+            </ul>
+            <a href="#contact" class="btn btn-primary pricing-btn btn-cta">ทดลองฟรี 7 วัน</a>
+          </div>
+
+          <!-- Pricing Card 3: Enterprise -->
+          <div class="pricing-card glass-card">
+            <div class="pricing-card-header">
+              <span class="pricing-plan-badge enterprise-badge">&#127970; Enterprise</span>
+              <div class="pricing-price">฿8,990<span class="pricing-period">/เดือน</span></div>
+              <span class="pricing-credits">AI Credits ฿12,000/เดือน (1.33x สุดคุ้ม)</span>
+            </div>
+            <ul class="pricing-features">
+              <li><span class="check-icon">&#10004;</span> 20 สาขา</li>
+              <li><span class="check-icon">&#10004;</span> 50,000 ผู้ติดต่อ</li>
+              <li><span class="check-icon">&#10004;</span> 50 ช่องทาง</li>
+              <li><span class="check-icon">&#10004;</span> KPI + Multi-branch</li>
+            </ul>
+            <a href="#contact" class="btn btn-secondary pricing-btn">ปรึกษาทีมขายส่วนตัว</a>
+          </div>
+        </div>
+        <div class="pricing-subtext text-center">
+          ทดลองฟรี 7 วัน - ไม่ผูกบัตร - ยกเลิกได้ทุกเมื่อ - ไม่มีค่าแรกเข้า
+        </div>
+      </section>
+
+      <!-- FAQ Accordion 2 - Decisions (Image 3 Top) -->
+      <section class="faq-accordion-section">
+        <div class="section-header text-center">
+          <h2 class="section-title">คำถามที่ต้องรู้ก่อนตัดสินใจ</h2>
+        </div>
+
+        <div class="accordion-container">
+          <!-- Accordion Item 1 -->
+          <div class="accordion-item glass-card">
+            <button class="accordion-header" aria-expanded="false">
+              <span>YoKit ต่างจากแชทบอทกลางๆ ยังไง?</span>
+              <span class="accordion-icon">&darr;</span>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-content">
+                แชทบอททั่วไปตอบได้แค่คำสำคัญ (Keyword) หรือทำหน้าเมนูสไลด์ธรรมดา แต่ YoKit ใช้โมเดล AI ภาษาไทยระดับสูง เรียนรู้ข้อมูลร้านค้าเฉพาะทางของคุณเพื่อปิดยอดและส่งลิงก์ชำระเงินในแชทได้ทันทีเหมือนคุยกับมนุษย์จริง
+              </div>
+            </div>
+          </div>
+          <!-- Accordion Item 2 -->
+          <div class="accordion-item glass-card">
+            <button class="accordion-header" aria-expanded="false">
+              <span>AI ตอบแทนได้จริงไหม?</span>
+              <span class="accordion-icon">&darr;</span>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-content">
+                ตอบแทนได้จริงถึง 80-90% ของคำถามที่พบบ่อย ทั้งสอบถามสรรพคุณ ราคา โปรโมชั่น วิธีใช้ พร้อมช่วยแนะโปรโมชั่นเพื่อจูงใจลูกค้าจองคิวหรือโอนเงินสำเร็จ
+              </div>
+            </div>
+          </div>
+          <!-- Accordion Item 3 -->
+          <div class="accordion-item glass-card">
+            <button class="accordion-header" aria-expanded="false">
+              <span>ใช้งานยากไหม? ต้องเขียนโค้ดไหม?</span>
+              <span class="accordion-icon">&darr;</span>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-content">
+                ไม่ต้องเขียนโค้ดเลยครับ ระบบเชื่อมต่อง่ายผ่าน API เพียงล๊อกอินช่องทางของคุณ และมีคู่มือฝึก AI เป็นภาษาไทยที่ใช้งานง่ายสุดๆ
+              </div>
+            </div>
+          </div>
+          <!-- Accordion Item 4 -->
+          <div class="accordion-item glass-card">
+            <button class="accordion-header" aria-expanded="false">
+              <span>ทดลองฟรีได้กี่วัน? มี AI Credit ไหม?</span>
+              <span class="accordion-icon">&darr;</span>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-content">
+                ทดลองฟรี 7 วันเต็มโดยไม่ต้องผูกบัตรเครดิต! พร้อมรับ AI Credit ฟรีตามความจุแพ็คเกจเริ่มต้นสำหรับใช้งานได้ทันที
+              </div>
+            </div>
+          </div>
+          <!-- Accordion Item 5 -->
+          <div class="accordion-item glass-card">
+            <button class="accordion-header" aria-expanded="false">
+              <span>ยกเลิกได้ไหม? มีสัญญาไหม?</span>
+              <span class="accordion-icon">&darr;</span>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-content">
+                ไม่มีสัญญาผูกมัดใดๆ ทั้งสิ้นครับ สามารถยกเลิก เปลี่ยนแพ็คเกจ หรืออัปเกรด/ดาวน์เกรดบริการได้ตลอดเวลาทุกเมื่อ
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer Call to Action Banner (Image 3 Bottom) -->
+      <section class="footer-cta-section">
+        <div class="footer-cta-banner">
+          <span class="gold-subtitle-decor text-center">ยังรออะไรอยู่ถ้ายอดขายหายทุกวัน?</span>
+          <h2 class="footer-cta-title">ทุกวันที่รอ คือยอดขายที่หายไป</h2>
+          <p class="footer-cta-desc">20 นาที AI เริ่มตอบแชทให้คุณ ลูกค้าทักมาก็รู้สึกเหมือนคุยกับแอดมินจริง ตั้งแต่คืนนี้</p>
+          <div class="footer-cta-actions">
+            <a href="#contact" class="btn btn-primary btn-cta">เริ่มทดลองใช้งานฟรีเลย</a>
+            <a href="#contact" class="btn-demo-link">นัดให้ทีมดูแลคุณ 20 นาที &rarr;</a>
+          </div>
+          <div class="footer-cta-notes">
+            <span>&check; ฟรี 7 วัน</span> | <span>&check; ไม่ต้องผูกบัตร</span> | <span>&check; ยกเลิกได้ทุกเมื่อ</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Form Section -->
+      <section id="contact" class="contact-section">
+        <div class="section-header text-center">
+          <h2 class="section-title">มาจองสิทธิ์เชื่อมต่อและทดลองฟรีวันนี้</h2>
+          <p class="section-subtitle">กรอกรายละเอียดเพื่อจองคิวติดตั้ง YoKit AI Assistant ด่วนที่สุด</p>
+        </div>
+
+        <div class="contact-wrapper">
+          <form class="glass-form" id="contact-form">
+            <div class="form-row">
+              <div class="input-group">
+                <input type="text" id="contact-name" required placeholder=" ">
+                <label for="contact-name">ชื่อของคุณ / ชื่อร้านค้า</label>
+              </div>
+              <div class="input-group">
+                <input type="email" id="contact-email" required placeholder=" ">
+                <label for="contact-email">อีเมลติดต่อกลับ</label>
+              </div>
+            </div>
+            
+            <div class="input-group">
+              <textarea id="contact-message" rows="5" required placeholder=" "></textarea>
+              <label for="contact-message">ช่องทางแชทที่ต้องการเชื่อมต่อ (เช่น LINE OA, Facebook Page) หรือข้อความที่อยากปรึกษา...</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit" id="submit-btn">
+              <span class="btn-text">จองคิวรับสิทธิ์ทดลองติดตั้งระบบฟรี</span>
+              <span class="loader" id="form-loader"></span>
+            </button>
+          </form>
+          
+          <div class="success-toast" id="success-toast">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" fill="#E9B949"/>
+            </svg>
+            <span>ส่งข้อมูลสำเร็จ! ระบบทำการส่งจองคิวแล้ว แอดมิน YoKit จะรีบแอดแชทมาติดต่อกลับไปในทันทีนะครับ!</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">
+            <span class="logo-y">Yo</span><span class="logo-k">Kit</span><span class="logo-dot">.</span>
+          </div>
+          <p>ระบบปิดออเดอร์แชท AI ควิกสปีดที่จะพาธุรกิจร้านค้าของคุณไปสู่ความสำเร็จ 24 ชม.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#demo">เดโมหน้าจอ</a>
+          <a href="#about">โซลูชัน</a>
+          <a href="#steps">ขั้นตอน</a>
+          <a href="#features">ฟีเจอร์</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 YoKit SaaS AI Assistant. All rights reserved.</p>
+        <p class="tech-signature">Coded with ⚡ and Glassmorphism design system.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js?v=1.8.1" defer></script>
+</body>
+</html>
