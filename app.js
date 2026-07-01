@@ -263,6 +263,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // 9. Interactive Sliding Pricing Selector
   initPricingSelector();
 
+  // 10. Interactive Chat Simulator
+  initChatSimulator();
+
+  // 11. Interactive Integration Beams
+  initIntegrationBeams();
+
 });
 
 // 3D Tilt Cards Implementation
@@ -357,6 +363,229 @@ function initPricingSelector() {
       cards.forEach(c => c.classList.remove('active-card'));
       card.classList.add('active-card');
     });
+  });
+}
+
+// 10. Interactive Chat Simulator Implementation
+function initChatSimulator() {
+  const chatBox = document.getElementById('mock-chat-box');
+  if (!chatBox) return;
+
+  const dialogue = [
+    { type: 'customer', text: 'ลูกค้า M: สนใจชุดบำรุงผิว Glow X ครับ ✨' },
+    { type: 'assistant', text: 'สวัสดีครับคุณ M! ยินดีต้อนรับครับ ครีม Glow X ตอนนี้จัดโปรลด 30% แถมส่งฟรีด่วนถึงพรุ่งนี้เลยครับ สนใจรับโปรโมชั่นนี้เลยไหมครับ? 🛍️' },
+    { type: 'customer', text: 'จัดมาเลยครับ 2 กระปุก ส่งด่วนกรุงเทพฯ ครับ' },
+    { type: 'assistant', text: 'รับยอด 2 กระปุกครับ! ยอดชำระทั้งหมด ฿850 สามารถคลิกชำระเงินและสแกนจ่ายผ่านลิงก์นี้ได้เลยครับผม 👇', customHtml: '<div class="payment-link-card"><span class="link-icon">🔗</span> ลิงก์ชำระเงิน - ยืนยันยอดอัตโนมัติใน 3 วินาที</div>' },
+    { type: 'customer', text: 'โอนเงินเสร็จแล้วครับ แนบสลิปเรียบร้อย <span class="check-tick">✔</span>', isSlip: true },
+    { type: 'assistant', text: 'ได้รับยอดชำระ ฿850 เรียบร้อยแล้วครับ! ระบบบันทึกที่อยู่จัดส่งและตัดสต็อกสินค้าในคลังให้เรียบร้อย จะส่งเลขแทร็คกิ้งให้ในเย็นวันนี้นะครับ ขอบคุณครับ! 📦🚚' }
+  ];
+
+  let currentStep = 0;
+
+  function scrollChat() {
+    chatBox.scrollTo({
+      top: chatBox.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
+
+  function showTypingIndicator(type, callback) {
+    const indicator = document.createElement('div');
+    indicator.className = `typing-indicator ${type}-typing`;
+    indicator.innerHTML = '<span></span><span></span><span></span>';
+    chatBox.appendChild(indicator);
+    scrollChat();
+
+    setTimeout(() => {
+      indicator.remove();
+      callback();
+    }, 1200 + Math.random() * 600); // realistic variance
+  }
+
+  function renderBubble(message) {
+    const bubble = document.createElement('div');
+    bubble.className = `chat-bubble bubble-${message.type}`;
+    
+    if (message.isSlip) {
+      // Mock an elegant animated slip upload inside the chat
+      bubble.innerHTML = `
+        <p>${message.text}</p>
+        <div style="margin-top: 8px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 10px; border-radius: 8px; display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 1.5rem;">📄</span>
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-size: 0.75rem; font-weight: 700; color: #10B981;">slip_verified.jpg</span>
+            <span style="font-size: 0.65rem; color: var(--text-muted);">K-Bank • ฿850.00 • ตรวจสลิปสำเร็จ</span>
+          </div>
+        </div>
+      `;
+    } else {
+      bubble.innerHTML = `<p>${message.text}</p>`;
+      if (message.customHtml) {
+        bubble.innerHTML += message.customHtml;
+      }
+    }
+
+    chatBox.appendChild(bubble);
+    scrollChat();
+
+    // Move to next step after some reading time
+    currentStep++;
+    setTimeout(nextMessage, 2200 + message.text.length * 15); // reading delay based on text length
+  }
+
+  function nextMessage() {
+    if (currentStep >= dialogue.length) {
+      // End of convo, wait 5 seconds and restart
+      setTimeout(() => {
+        chatBox.innerHTML = '';
+        currentStep = 0;
+        nextMessage();
+      }, 5000);
+      return;
+    }
+
+    const currentMsg = dialogue[currentStep];
+    showTypingIndicator(currentMsg.type, () => {
+      renderBubble(currentMsg);
+    });
+  }
+
+  // Start sequence
+  nextMessage();
+}
+
+// 11. Premium Interactive Integration Beams Implementation
+function initIntegrationBeams() {
+  const svg = document.getElementById('integration-beams-svg');
+  const container = document.querySelector('.integrations-interactive-container');
+  if (!svg || !container) return;
+
+  const leftNodes = document.querySelectorAll('.social-channels .integration-node');
+  const rightNodes = document.querySelectorAll('.backend-systems .integration-node');
+  const hub = document.getElementById('node-yokit-hub');
+
+  if (leftNodes.length === 0 || rightNodes.length === 0 || !hub) return;
+
+  // Store paths to redraw on resize
+  let pathDefinitions = [];
+
+  function drawConnections() {
+    // Clear SVG
+    svg.innerHTML = '';
+    pathDefinitions = [];
+
+    const svgRect = svg.getBoundingClientRect();
+    const hubRect = hub.getBoundingClientRect();
+
+    const hubX = hubRect.left - svgRect.left + hubRect.width / 2;
+    const hubY = hubRect.top - svgRect.top + hubRect.height / 2;
+
+    // Draw Left (Social) -> Center (Hub)
+    leftNodes.forEach(node => {
+      const nodeRect = node.getBoundingClientRect();
+      const nodeX = nodeRect.left - svgRect.left + nodeRect.width;
+      const nodeY = nodeRect.top - svgRect.top + nodeRect.height / 2;
+      const color = node.getAttribute('data-color') || '#ffffff';
+
+      // Draw curved bezier path
+      const pathData = `M ${nodeX} ${nodeY} C ${(nodeX + hubX) / 2} ${nodeY}, ${(nodeX + hubX) / 2} ${hubY}, ${hubX} ${hubY}`;
+      
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', pathData);
+      path.setAttribute('class', 'beam-path');
+      svg.appendChild(path);
+
+      pathDefinitions.push({
+        pathData: pathData,
+        color: color,
+        length: path.getTotalLength(),
+        direction: 'in'
+      });
+    });
+
+    // Draw Center (Hub) -> Right (Backend)
+    rightNodes.forEach(node => {
+      const nodeRect = node.getBoundingClientRect();
+      const nodeX = nodeRect.left - svgRect.left;
+      const nodeY = nodeRect.top - svgRect.top + nodeRect.height / 2;
+      const color = node.getAttribute('data-color') || '#ffffff';
+
+      const pathData = `M ${hubX} ${hubY} C ${(hubX + nodeX) / 2} ${hubY}, ${(hubX + nodeX) / 2} ${nodeY}, ${nodeX} ${nodeY}`;
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', pathData);
+      path.setAttribute('class', 'beam-path');
+      svg.appendChild(path);
+
+      pathDefinitions.push({
+        pathData: pathData,
+        color: color,
+        length: path.getTotalLength(),
+        direction: 'out'
+      });
+    });
+
+    // Create shuttle elements (running laser particles)
+    pathDefinitions.forEach((def, index) => {
+      const shuttle = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      shuttle.setAttribute('d', def.pathData);
+      shuttle.setAttribute('class', 'beam-shuttle');
+      shuttle.style.setProperty('--shuttle-color', def.color);
+      shuttle.setAttribute('stroke', def.color);
+      
+      const shuttleLen = 30; // 30px dash length
+      shuttle.setAttribute('stroke-dasharray', `${shuttleLen} ${def.length}`);
+      shuttle.setAttribute('stroke-dashoffset', def.length);
+      
+      const animName = `runLaser_${index}`;
+      const style = document.createElement('style');
+      
+      let keyframes = '';
+      if (def.direction === 'in') {
+        keyframes = `
+          @keyframes ${animName} {
+            0% { stroke-dashoffset: ${def.length + shuttleLen}; opacity: 0; }
+            5% { opacity: 1; }
+            55%, 100% { stroke-dashoffset: 0; opacity: 0; }
+          }
+        `;
+      } else {
+        keyframes = `
+          @keyframes ${animName} {
+            0%, 45% { stroke-dashoffset: 0; opacity: 0; }
+            50% { opacity: 1; }
+            95% { opacity: 1; }
+            100% { stroke-dashoffset: -${def.length}; opacity: 0; }
+          }
+        `;
+      }
+      
+      style.innerHTML = keyframes;
+      svg.appendChild(style);
+      
+      shuttle.style.animation = `${animName} 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite`;
+      
+      if (def.direction === 'in') {
+        shuttle.style.animationDelay = `${(index % 4) * 0.45}s`;
+      } else {
+        shuttle.style.animationDelay = `${1.6 + (index % 3) * 0.35}s`;
+      }
+      
+      svg.appendChild(shuttle);
+    });
+  }
+
+  // Draw on load after layout rendering completes
+  setTimeout(drawConnections, 350);
+
+  // Redraw on window resize
+  window.addEventListener('resize', () => {
+    // Check if view width is above mobile break point before drawing to conserve memory
+    if (window.innerWidth > 900) {
+      drawConnections();
+    } else {
+      svg.innerHTML = '';
+    }
   });
 }
 

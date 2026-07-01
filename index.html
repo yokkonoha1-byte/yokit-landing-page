@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=2.0.6">
+  <link rel="stylesheet" href="styles.css?v=2.0.7">
 </head>
 <body>
   <!-- Premium SVG Line-Drawing Preloader -->
@@ -480,6 +480,88 @@
         </div>
       </section>
 
+      <!-- Integrations & Animated Laser Beams Section -->
+      <section class="integrations-section">
+        <div class="section-header text-center">
+          <span class="gold-subtitle-decor">เชื่อมต่อไร้รอยต่อ 360 องศา</span>
+          <h2 class="section-title">รับแชทจากทุกช่องทาง — ส่งตรงหลังบ้านอัปเดตเรียลไทม์</h2>
+          <p class="section-subtitle">แชทบอท YoKit ทำหน้าที่เป็น AI อัจฉริยะกึ่งกลาง โยงลูกค้าจาก Line, Facebook, TikTok, Instagram เข้าสู่ระบบสต็อกสินค้าและบัญชีร้านคุณ</p>
+        </div>
+
+        <div class="integrations-interactive-container glass-card">
+          <!-- Left side: Social Channels -->
+          <div class="integration-column social-channels">
+            <div class="integration-node social-node" id="node-line" data-color="#10B981">
+              <div class="node-icon">💬</div>
+              <div class="node-text">
+                <span class="node-label">LINE Official</span>
+                <span class="node-sub">LINE แชทบอท</span>
+              </div>
+            </div>
+            <div class="integration-node social-node" id="node-facebook" data-color="#1877F2">
+              <div class="node-icon">📘</div>
+              <div class="node-text">
+                <span class="node-label">Facebook</span>
+                <span class="node-sub">Messenger Inbox</span>
+              </div>
+            </div>
+            <div class="integration-node social-node" id="node-tiktok" data-color="#EE1D52">
+              <div class="node-icon">🎵</div>
+              <div class="node-text">
+                <span class="node-label">TikTok Shop</span>
+                <span class="node-sub">TikTok แชทสั่งของ</span>
+              </div>
+            </div>
+            <div class="integration-node social-node" id="node-instagram" data-color="#E1306C">
+              <div class="node-icon">📸</div>
+              <div class="node-text">
+                <span class="node-label">Instagram</span>
+                <span class="node-sub">Direct Messages</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Middle: YoKit Central AI engine -->
+          <div class="integration-column center-hub">
+            <div class="integration-node hub-node" id="node-yokit-hub">
+              <div class="hub-glowing-ring"></div>
+              <div class="hub-logo">
+                <span class="logo-y">Yo</span><span class="logo-k">Kit</span>
+              </div>
+              <span class="node-hub-label">YoKit AI Central</span>
+            </div>
+          </div>
+
+          <!-- Right side: Backend Systems -->
+          <div class="integration-column backend-systems">
+            <div class="integration-node backend-node" id="node-crm" data-color="#FFD043">
+              <div class="node-icon">📊</div>
+              <div class="node-text">
+                <span class="node-label">CRM & Orders</span>
+                <span class="node-sub">เก็บยอด บันทึกแชท</span>
+              </div>
+            </div>
+            <div class="integration-node backend-node" id="node-stock" data-color="#FF9F1C">
+              <div class="node-icon">📦</div>
+              <div class="node-text">
+                <span class="node-label">คลังสินค้า</span>
+                <span class="node-sub">ตัดสต็อกออโต้</span>
+              </div>
+            </div>
+            <div class="integration-node backend-node" id="node-shipping" data-color="#2997FF">
+              <div class="node-icon">🚚</div>
+              <div class="node-text">
+                <span class="node-label">ระบบขนส่ง</span>
+                <span class="node-sub">ออกใบนำส่งพัสดุ</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- SVG canvas overlay for drawing dynamic beams -->
+          <svg class="integration-beams-svg" id="integration-beams-svg"></svg>
+        </div>
+      </section>
+
       <!-- Chat Automation Showcase (Image 4) -->
       <section class="chat-showcase-section">
         <div class="chat-showcase-layout">
@@ -502,44 +584,13 @@
             <div class="chat-window-header">
               <div class="bot-avatar-icon">🤖</div>
               <div>
-                <span class="bot-name">YoKit Assistant</span>
-                <span class="bot-status"><span class="dot"></span> Active</span>
+                <span class="bot-name">YoKit AI Assistant</span>
+                <span class="bot-status"><span class="dot"></span> ทำงานอัตโนมัติ</span>
               </div>
             </div>
             
             <div class="chat-conversation-container" id="mock-chat-box">
-              <!-- Bubble 1 (Customer) -->
-              <div class="chat-bubble bubble-customer">
-                <p>ลูกค้า M ที่ทัก — สนใจดีจ้า ✨</p>
-              </div>
-              
-              <!-- Bubble 2 (AI Assistant) -->
-              <div class="chat-bubble bubble-assistant">
-                <p>สวัสดีค่ะ คุณ M! ครีม Glow X ลด 30% อยู่นะคะ ขอออเดอร์ได้เลยค่ะ 🛍️</p>
-              </div>
-              
-              <!-- Bubble 3 (Customer) -->
-              <div class="chat-bubble bubble-customer">
-                <p>เอาเลย 2 ชิ้น ส่งยังไงคะ?</p>
-              </div>
-              
-              <!-- Bubble 4 (AI Assistant) -->
-              <div class="chat-bubble bubble-assistant">
-                <p>ส่งฟรีเลยค่ะ! โอน ฿850 ลิงก์นี้ได้เลยค่ะ 👇</p>
-                <div class="payment-link-card">
-                  <span class="link-icon">🔗</span> ลิงก์ชำระเงิน - ยืนยันใน 3 วินาที
-                </div>
-              </div>
-              
-              <!-- Bubble 5 (Customer) -->
-              <div class="chat-bubble bubble-customer">
-                <p>โอนแล้วค่ะ แนบสลิป <span class="check-tick">&#10004;</span></p>
-              </div>
-              
-              <!-- Bubble 6 (AI Assistant) -->
-              <div class="chat-bubble bubble-assistant">
-                <p>รับเรียบร้อยค่ะ! จัดส่งพรุ่งนี้นะคะ 📦</p>
-              </div>
+              <!-- Animated Chat Bubbles will be injected here dynamically by app.js -->
             </div>
           </div>
         </div>
@@ -996,6 +1047,6 @@
     </footer>
   </div>
 
-  <script src="app.js?v=2.0.6" defer></script>
+  <script src="app.js?v=2.0.7" defer></script>
 </body>
 </html>
