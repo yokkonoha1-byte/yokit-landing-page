@@ -346,64 +346,17 @@ function initShinyButtons() {
   });
 }
 
-// Premium Interactive Sliding Pricing Selector
+// Premium Interactive Pricing Selector (No sliding layout math, pure CSS toggled highlights)
 function initPricingSelector() {
-  const grid = document.querySelector('.pricing-grid');
   const cards = document.querySelectorAll('.pricing-grid .pricing-card');
-  const border = document.getElementById('pricing-active-border');
-  const glow = document.getElementById('pricing-active-glow');
+  if (cards.length === 0) return;
   
-  if (!grid || cards.length === 0 || !border || !glow) return;
-  
-  function updateActiveCard(activeCard, animate = true) {
-    cards.forEach(c => c.classList.remove('active-card'));
-    activeCard.classList.add('active-card');
-    
-    const left = activeCard.offsetLeft;
-    const top = activeCard.offsetTop;
-    const width = activeCard.offsetWidth;
-    const height = activeCard.offsetHeight;
-    
-    if (!animate) {
-      border.style.transition = 'none';
-      glow.style.transition = 'none';
-    } else {
-      border.style.transition = 'transform 0.55s cubic-bezier(0.25, 1, 0.22, 1), width 0.55s, height 0.55s, opacity 0.3s';
-      glow.style.transition = 'transform 0.55s cubic-bezier(0.25, 1, 0.22, 1), width 0.55s, height 0.55s, opacity 0.3s';
-    }
-    
-    // Set position and size of active border
-    border.style.transform = `translate3d(${left}px, ${top}px, 0)`;
-    border.style.width = `${width}px`;
-    border.style.height = `${height}px`;
-    border.style.opacity = '1';
-    
-    // Position active glow backlight centered behind the card
-    glow.style.transform = `translate3d(${left + width / 2 - 160}px, ${top + height / 2 - 240}px, 0)`;
-    glow.style.opacity = '1';
-  }
-  
-  // Initialize with Business Card as active
-  const initialActive = document.querySelector('.pricing-card.featured-pricing') || cards[1];
-  if (initialActive) {
-    setTimeout(() => {
-      updateActiveCard(initialActive, false);
-    }, 350);
-  }
-  
-  // Click listener for all cards
   cards.forEach(card => {
     card.addEventListener('click', () => {
-      updateActiveCard(card, true);
+      // Toggle active-card class
+      cards.forEach(c => c.classList.remove('active-card'));
+      card.classList.add('active-card');
     });
-  });
-  
-  // Handle resize to preserve accurate absolute coordinates
-  window.addEventListener('resize', () => {
-    const active = document.querySelector('.pricing-grid .pricing-card.active-card');
-    if (active) {
-      updateActiveCard(active, false);
-    }
   });
 }
 

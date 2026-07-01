@@ -3227,59 +3227,89 @@ body.light-theme .accordion-item.active .accordion-icon {
   min-height: 480px;
   position: relative;
   cursor: pointer;
-  z-index: 2; /* Sit above glow but under active border */
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.22, 1), box-shadow 0.5s ease;
+  z-index: 2;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.22, 1), 
+              border-color 0.45s ease, 
+              box-shadow 0.45s ease;
+  border: 2px solid transparent;
 }
 
-.pricing-card.active-card {
-  transform: scale(1.035);
+/* Base glow backstage pseudo-element */
+.pricing-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  border-radius: 24px;
+  filter: blur(45px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+body.light-theme .pricing-card::before {
+  filter: blur(35px);
+}
+
+/* Individual card active highlight state styles */
+/* Starter (Green themed) */
+.pricing-card.starter-card.active-card {
+  transform: scale(1.03);
+  border-color: #10B981;
+  box-shadow: 0 15px 35px rgba(16, 185, 129, 0.12);
   z-index: 4;
+}
+.pricing-card.starter-card.active-card::before {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, transparent 70%);
+  opacity: 0.8;
+  mix-blend-mode: screen;
+}
+body.light-theme .pricing-card.starter-card.active-card::before {
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
+
+/* Business (Gold themed) */
+.pricing-card.business-card.active-card {
+  transform: scale(1.03);
+  border-color: #FFD043;
+  box-shadow: 0 15px 35px rgba(255, 208, 67, 0.15);
+  z-index: 4;
+}
+.pricing-card.business-card.active-card::before {
+  background: radial-gradient(circle, rgba(255, 208, 67, 0.35) 0%, transparent 70%);
+  opacity: 0.8;
+  mix-blend-mode: screen;
+}
+body.light-theme .pricing-card.business-card.active-card::before {
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
+
+/* Enterprise (Blue themed) */
+.pricing-card.enterprise-card.active-card {
+  transform: scale(1.03);
+  border-color: #3B82F6;
+  box-shadow: 0 15px 35px rgba(59, 130, 246, 0.12);
+  z-index: 4;
+}
+.pricing-card.enterprise-card.active-card::before {
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.35) 0%, transparent 70%);
+  opacity: 0.8;
+  mix-blend-mode: screen;
+}
+body.light-theme .pricing-card.enterprise-card.active-card::before {
+  opacity: 0.5;
+  mix-blend-mode: multiply;
 }
 
 @media (max-width: 900px) {
   .pricing-card.active-card {
     transform: scale(1.01);
   }
-}
-
-/* Sliding active border frame */
-.pricing-active-border {
-  position: absolute;
-  top: 0;
-  left: 0;
-  border: 2px solid #FFD043;
-  border-radius: 24px; /* match glass-card border radius */
-  pointer-events: none;
-  z-index: 5;
-  box-shadow: 0 0 35px rgba(255, 208, 67, 0.22);
-  opacity: 0;
-  transform: translate3d(0, 0, 0);
-  transition: transform 0.55s cubic-bezier(0.25, 1, 0.22, 1), 
-              width 0.55s cubic-bezier(0.25, 1, 0.22, 1), 
-              height 0.55s cubic-bezier(0.25, 1, 0.22, 1),
-              opacity 0.3s ease;
-}
-
-/* Glowing backlight behind active card */
-.pricing-active-glow {
-  position: absolute;
-  width: 320px;
-  height: 480px;
-  background: radial-gradient(circle, rgba(255, 208, 67, 0.35) 0%, rgba(41, 151, 255, 0.15) 55%, transparent 80%);
-  filter: blur(55px);
-  pointer-events: none;
-  z-index: 1; /* Behind cards */
-  opacity: 0;
-  transform: translate3d(0, 0, 0);
-  transition: transform 0.55s cubic-bezier(0.25, 1, 0.22, 1), 
-              opacity 0.3s ease;
-  mix-blend-mode: screen;
-}
-
-body.light-theme .pricing-active-glow {
-  background: radial-gradient(circle, rgba(255, 208, 67, 0.28) 0%, rgba(41, 151, 255, 0.1) 50%, transparent 85%);
-  filter: blur(45px);
-  mix-blend-mode: multiply;
 }
 
 .pricing-card-header {
