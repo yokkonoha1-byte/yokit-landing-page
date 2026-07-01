@@ -3999,4 +3999,137 @@ body.light-theme .beam-path.active-path {
   }
 }
 
+/* 3. Pricing Toggle Switcher */
+.pricing-toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 40px;
+  z-index: 5;
+  position: relative;
+}
+
+.toggle-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-label.active {
+  color: var(--text-primary);
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 28px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-color);
+  transition: .35s;
+  border-radius: 34px;
+}
+
+body.light-theme .toggle-slider {
+  background-color: rgba(15, 23, 42, 0.04);
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #FFFFFF;
+  transition: .35s;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+}
+
+body.light-theme .toggle-slider:before {
+  background-color: #0F172A;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background-color: #FFD043;
+  border-color: #D49024;
+}
+
+body.light-theme .toggle-switch input:checked + .toggle-slider {
+  background-color: #E5A823;
+  border-color: #D49024;
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(26px);
+  background-color: #0F172A;
+}
+
+body.light-theme .toggle-switch input:checked + .toggle-slider:before {
+  background-color: #FFFFFF;
+}
+
+.discount-badge {
+  background: linear-gradient(135deg, #FFD043, #D49024);
+  color: #0F172A;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 20px;
+  margin-left: 4px;
+  box-shadow: 0 4px 10px rgba(255, 208, 67, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.billed-yearly-sub {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-top: 2px;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease, height 0.3s ease, margin-top 0.3s ease;
+}
+
+.billed-yearly-sub.visible {
+  opacity: 0.85;
+  height: 18px;
+  margin-top: 6px;
+}
+
+.price-val {
+  display: inline-block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.price-val.price-changed {
+  transform: scale(0.92);
+  opacity: 0;
+}
+
 

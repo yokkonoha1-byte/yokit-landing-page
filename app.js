@@ -269,6 +269,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // 11. Interactive Integration Beams
   initIntegrationBeams();
 
+  // 12. Monthly vs Annual Pricing Toggle Switcher
+  initPricingToggle();
+
 });
 
 // 3D Tilt Cards Implementation
@@ -585,6 +588,68 @@ function initIntegrationBeams() {
       drawConnections();
     } else {
       svg.innerHTML = '';
+    }
+  });
+}
+
+// 12. Monthly vs Annual Pricing Toggle Switcher Implementation
+function initPricingToggle() {
+  const checkbox = document.getElementById('pricing-toggle-checkbox');
+  const toggleMonthly = document.getElementById('toggle-monthly');
+  const toggleYearly = document.getElementById('toggle-yearly');
+  const priceVals = document.querySelectorAll('.pricing-grid .price-val');
+  const billedSubs = document.querySelectorAll('.pricing-grid .billed-yearly-sub');
+  
+  if (!checkbox || !toggleMonthly || !toggleYearly || priceVals.length === 0) return;
+  
+  function updatePrices(isYearly) {
+    // 1. Toggle active state class on labels
+    if (isYearly) {
+      toggleYearly.classList.add('active');
+      toggleMonthly.classList.remove('active');
+    } else {
+      toggleMonthly.classList.add('active');
+      toggleYearly.classList.remove('active');
+    }
+    
+    // 2. Animate prices out and in
+    priceVals.forEach(val => {
+      val.classList.add('price-changed');
+      
+      setTimeout(() => {
+        const targetPrice = isYearly ? val.getAttribute('data-yearly') : val.getAttribute('data-monthly');
+        val.textContent = targetPrice;
+        val.classList.remove('price-changed');
+      }, 180);
+    });
+    
+    // 3. Toggle yearly sub-label visibility
+    billedSubs.forEach(sub => {
+      if (isYearly) {
+        sub.classList.add('visible');
+      } else {
+        sub.classList.remove('visible');
+      }
+    });
+  }
+  
+  // Toggle switcher check listener
+  checkbox.addEventListener('change', (e) => {
+    updatePrices(e.target.checked);
+  });
+  
+  // Clicking the labels toggles the switcher
+  toggleMonthly.addEventListener('click', () => {
+    if (checkbox.checked) {
+      checkbox.checked = false;
+      updatePrices(false);
+    }
+  });
+  
+  toggleYearly.addEventListener('click', () => {
+    if (!checkbox.checked) {
+      checkbox.checked = true;
+      updatePrices(true);
     }
   });
 }

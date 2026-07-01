@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=2.0.7">
+  <link rel="stylesheet" href="styles.css?v=2.0.8">
 </head>
 <body>
   <!-- Premium SVG Line-Drawing Preloader -->
@@ -842,12 +842,27 @@
           <p class="section-subtitle">เดือนแรกไม่มีความเสี่ยง ทดลองฟรี 7 วัน ไม่ต้องผูกบัตร</p>
         </div>
 
+        <!-- Pricing Toggle Switcher -->
+        <div class="pricing-toggle-container">
+          <span class="toggle-label active" id="toggle-monthly">รายเดือน</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="pricing-toggle-checkbox">
+            <span class="toggle-slider"></span>
+          </label>
+          <span class="toggle-label" id="toggle-yearly">
+            รายปี <span class="discount-badge">ประหยัด 20% 🔥</span>
+          </span>
+        </div>
+
         <div class="pricing-grid">
           <!-- Pricing Card 1: Starter -->
           <div class="pricing-card starter-card glass-card">
             <div class="pricing-card-header">
               <span class="pricing-plan-badge starter-badge">&#9989; Starter</span>
-              <div class="pricing-price">฿1,490<span class="pricing-period">/เดือน</span></div>
+              <div class="pricing-price">
+                <span class="price-val" data-monthly="฿1,490" data-yearly="฿1,190">฿1,490</span><span class="pricing-period">/เดือน</span>
+              </div>
+              <div class="billed-yearly-sub">(ชำระรายปี ฿14,280/ปี)</div>
               <span class="pricing-credits">AI Credits ฿1,490/เดือน</span>
             </div>
             <ul class="pricing-features">
@@ -864,7 +879,10 @@
             <div class="featured-badge-tag">Most Popular</div>
             <div class="pricing-card-header">
               <span class="pricing-plan-badge business-badge">&#128640; Business</span>
-              <div class="pricing-price text-white">฿3,990<span class="pricing-period text-gray">/เดือน</span></div>
+              <div class="pricing-price text-white">
+                <span class="price-val" data-monthly="฿3,990" data-yearly="฿3,190">฿3,990</span><span class="pricing-period text-gray">/เดือน</span>
+              </div>
+              <div class="billed-yearly-sub">(ชำระรายปี ฿38,280/ปี)</div>
               <span class="pricing-credits text-gold">AI Credits ฿5,000/เดือน (1.25x สุดคุ้ม)</span>
             </div>
             <ul class="pricing-features text-gray">
@@ -880,7 +898,10 @@
           <div class="pricing-card enterprise-card glass-card">
             <div class="pricing-card-header">
               <span class="pricing-plan-badge enterprise-badge">&#127970; Enterprise</span>
-              <div class="pricing-price">฿8,990<span class="pricing-period">/เดือน</span></div>
+              <div class="pricing-price">
+                <span class="price-val" data-monthly="฿8,990" data-yearly="฿7,190">฿8,990</span><span class="pricing-period">/เดือน</span>
+              </div>
+              <div class="billed-yearly-sub">(ชำระรายปี ฿86,280/ปี)</div>
               <span class="pricing-credits">AI Credits ฿12,000/เดือน (1.33x สุดคุ้ม)</span>
             </div>
             <ul class="pricing-features">
@@ -1047,6 +1068,6 @@
     </footer>
   </div>
 
-  <script src="app.js?v=2.0.7" defer></script>
+  <script src="app.js?v=2.0.8" defer></script>
 </body>
 </html>
