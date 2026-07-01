@@ -337,8 +337,8 @@ function initMagneticButtons() {
       const x = e.clientX - (rect.left + rect.width / 2);
       const y = e.clientY - (rect.top + rect.height / 2);
       
-      // Pull element toward cursor (maximum 15px translation)
-      el.style.transform = `translate3d(${x * 0.42}px, ${y * 0.42}px, 0) scale(1.04)`;
+      // Pull element toward cursor gently (subtle nudge of ~5px max)
+      el.style.transform = `translate3d(${x * 0.08}px, ${y * 0.08}px, 0) scale(1.015)`;
       
       // Update shiny glow position inside the button
       const shineX = e.clientX - rect.left;
