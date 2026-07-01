@@ -3232,6 +3232,7 @@ body.light-theme .accordion-item.active .accordion-icon {
               border-color 0.45s ease, 
               box-shadow 0.45s ease;
   border: 2px solid transparent;
+  overflow: visible !important;
 }
 
 /* Base glow backstage pseudo-element */
