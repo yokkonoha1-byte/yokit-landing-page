@@ -337,14 +337,20 @@ function initMagneticButtons() {
       const x = e.clientX - (rect.left + rect.width / 2);
       const y = e.clientY - (rect.top + rect.height / 2);
       
-      // Pull element toward cursor (maximum 12px translation)
-      el.style.transform = `translate3d(${x * 0.35}px, ${y * 0.35}px, 0) scale(1.02)`;
+      // Pull element toward cursor (maximum 15px translation)
+      el.style.transform = `translate3d(${x * 0.42}px, ${y * 0.42}px, 0) scale(1.04)`;
+      
+      // Update shiny glow position inside the button
+      const shineX = e.clientX - rect.left;
+      const shineY = e.clientY - rect.top;
+      el.style.setProperty('--shine-x', `${shineX}px`);
+      el.style.setProperty('--shine-y', `${shineY}px`);
     });
     
     el.addEventListener('mouseleave', () => {
       // Spring back with overshoot bounce
       el.style.transform = 'translate3d(0, 0, 0) scale(1)';
-      el.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      el.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
     });
     
     el.addEventListener('mouseenter', () => {
