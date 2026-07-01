@@ -615,17 +615,26 @@ function initPricingToggle() {
     // 2. Animate prices out and in
     priceVals.forEach(val => {
       val.classList.add('price-changed');
+      const periodSuffix = val.nextElementSibling;
       
       setTimeout(() => {
         const targetPrice = isYearly ? val.getAttribute('data-yearly') : val.getAttribute('data-monthly');
         val.textContent = targetPrice;
+        
+        if (periodSuffix && periodSuffix.classList.contains('pricing-period')) {
+          const targetSuffix = isYearly ? periodSuffix.getAttribute('data-yearly') : periodSuffix.getAttribute('data-monthly');
+          periodSuffix.textContent = targetSuffix;
+        }
+        
         val.classList.remove('price-changed');
       }, 180);
     });
     
-    // 3. Toggle yearly sub-label visibility
+    // 3. Toggle yearly sub-label visibility and average calculation display
     billedSubs.forEach(sub => {
       if (isYearly) {
+        const targetSubtext = sub.getAttribute('data-yearly');
+        sub.textContent = targetSubtext;
         sub.classList.add('visible');
       } else {
         sub.classList.remove('visible');
