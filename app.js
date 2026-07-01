@@ -257,8 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 7. CSS 3D Card Tilt Effects
   initCard3DTilt();
 
-  // 8. Premium Custom Cursor & Magnetic Buttons (CodePen inspired)
-  initMagneticButtons();
+  // 8. Premium Custom Cursor & Shiny Buttons (CodePen inspired)
+  initShinyButtons();
 
 });
 
@@ -327,35 +327,18 @@ function initCursorSpotlight() {
 
 
 // Premium Magnetic Buttons Implementation
-function initMagneticButtons() {
-  const magnetics = document.querySelectorAll('.btn, .pricing-btn, .menu-link, .accordion-header');
+// Premium Shiny Buttons Implementation
+function initShinyButtons() {
+  const shinyElements = document.querySelectorAll('.btn, .pricing-btn');
   
-  magnetics.forEach(el => {
+  shinyElements.forEach(el => {
     el.addEventListener('mousemove', (e) => {
       const rect = el.getBoundingClientRect();
-      // Calculate distance from cursor to center of element
-      const x = e.clientX - (rect.left + rect.width / 2);
-      const y = e.clientY - (rect.top + rect.height / 2);
-      
-      // Pull element toward cursor gently (subtle nudge of ~5px max)
-      el.style.transform = `translate3d(${x * 0.08}px, ${y * 0.08}px, 0) scale(1.015)`;
-      
       // Update shiny glow position inside the button
       const shineX = e.clientX - rect.left;
       const shineY = e.clientY - rect.top;
       el.style.setProperty('--shine-x', `${shineX}px`);
       el.style.setProperty('--shine-y', `${shineY}px`);
-    });
-    
-    el.addEventListener('mouseleave', () => {
-      // Spring back with overshoot bounce
-      el.style.transform = 'translate3d(0, 0, 0) scale(1)';
-      el.style.transition = 'transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-    });
-    
-    el.addEventListener('mouseenter', () => {
-      // Disable transition during active follow to prevent lag
-      el.style.transition = 'none';
     });
   });
 }

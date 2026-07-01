@@ -361,7 +361,21 @@ body.light-theme .cursor-glow {
   border: none;
   position: relative;
   overflow: hidden;
-  will-change: transform;
+  will-change: opacity, filter, box-shadow;
+  /* Start slightly faded and desaturated for a clean, integrated look */
+  opacity: 0.78;
+  filter: saturate(0.85) contrast(0.95);
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              filter 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.3s ease,
+              border-color 0.3s ease;
+}
+
+.btn:hover {
+  /* Become fully vibrant, prominent, and saturated on hover */
+  opacity: 1;
+  filter: saturate(1.18) contrast(1.05) brightness(1.02);
 }
 
 /* Shiny hover spotlight tracker overlay */
@@ -425,22 +439,23 @@ body.light-theme .btn::after {
 .btn-primary {
   background: var(--yo-gradient);
   color: #000000;
-  box-shadow: 0 4px 14px rgba(255, 208, 67, 0.12);
+  box-shadow: 0 4px 12px rgba(255, 208, 67, 0.05);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 6px 20px rgba(255, 208, 67, 0.22);
+  box-shadow: 0 6px 24px rgba(255, 208, 67, 0.32);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
   color: #FFFFFF;
   border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.35);
   background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.08);
 }
 
 /* Hero Section */
